@@ -1,14 +1,15 @@
 .register-section {
     margin: 100px;
-  }
+}
+
 .sign-up {
     background-color: blueviolet;
     border-color: brown;
-    color:aliceblue;
+    color: aliceblue;
     fill: aquamarine;
     border: 1px solid;
     border-radius: 4px;
-    text-align:  center;
+    text-align: center;
     letter-spacing: 1px;
     text-decoration: none;
     font-size: 12px;

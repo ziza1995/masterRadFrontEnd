@@ -1,5 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
+html {
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    margin-top: 63px;
+    height: 90%;
+    background-image: url('./assets/images/back.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
 input.ng-invalid.ng-touched {
     border: 1px solid red;
 }
