@@ -71,8 +71,24 @@
                   id="password"
                   class="form-control"
                   name="password"
+                  placeholder="Enter password"
+                  [ngModel]="password"
+                  (ngModelChange)="onChangeEvent($event)"
+                  minlength="5"
+                  maxlength="50"
                   required
                 />
+                <div style="margin: 11px;" id="strength" #strength>
+                  <small>Password strength:</small>
+
+                  <ul id="strengthBar">
+                    <li class="point" [style.background-color]="bar0"></li>
+                    <li class="point" [style.background-color]="bar1"></li>
+                    <li class="point" [style.background-color]="bar2"></li>
+                    <li class="point" [style.background-color]="bar3"></li>
+                    <li class="point" [style.background-color]="bar4"></li>
+                  </ul>
+                </div>
                 <span
                   *ngIf="
                     !signupForm.get('password').valid &&
