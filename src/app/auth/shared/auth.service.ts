@@ -22,7 +22,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private localStorage: LocalStorageService
-  ) {}
+  ) { }
 
   signup(signupRequestPayload: SignupRequest): Observable<any> {
     return this.httpClient.post(
@@ -32,7 +32,7 @@ export class AuthService {
     );
   }
 
-  login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
+  login(loginRequestPayload: LoginRequestPayload): Observable<LoginResponse> {
     return this.httpClient
       .post<LoginResponse>(
         'http://localhost:8080/api/auth/login',
@@ -50,10 +50,11 @@ export class AuthService {
 
           this.loggedIn.emit(true);
           this.username.emit(data.username);
-          return true;
+          return data;
         })
       );
   }
+
 
   getJwtToken() {
     return this.localStorage.retrieve('authenticationToken');
@@ -78,6 +79,22 @@ export class AuthService {
         })
       );
   }
+
+  resetPassword(username: string) {
+    this.httpClient
+      .post('http://localhost:8080/api/auth/resetPassword', username, {
+        responseType: 'text',
+      })
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          throwError(error);
+        }
+      );
+  }
+
 
   logout() {
     this.httpClient

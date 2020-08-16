@@ -1,10 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginRequestPayload } from './login-request.payload';
 import { AuthService } from '../shared/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MyDialogModalComponent } from 'src/app/modals/my-dialog-modal/my-dialog-modal.component';
+
+export interface DialogData {
+  username: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -16,12 +23,16 @@ export class LoginComponent implements OnInit {
   loginRequestPayload: LoginRequestPayload;
   registerSuccessMessage: string;
   isError: boolean;
+  message: string;
+  dialogValue: string;
+  sendValue: string;
 
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public dialog: MatDialog
   ) {
     this.loginRequestPayload = {
       username: '',
@@ -57,8 +68,24 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         this.isError = true;
+        this.message = error.error.message;
         throwError(error);
       }
     );
   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(MyDialogModalComponent, {
+      width: '250px',
+      backdropClass: 'custom-dialog-backdrop-class',
+      panelClass: 'custom-dialog-panel-class',
+      data: { pageValue: this.sendValue }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      this.authService.resetPassword(result.data);
+    });
+  }
 }
+
