@@ -6,36 +6,35 @@
           width="50"
           height="50"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
+          xmlns:xlink="http://www.w3.org/1999/xlink">
           <image href="assets/images/logo-cropped.png" height="50" width="50" />
-        </svg>
-        <span class="reddit-text" style="padding: 200;">
-          Spring Reddit Clone
-        </span>
-      </a>
-    </div>
-    <button class="login" style="border: 0px;" (click)="scroll()">
-      Click me!
-    </button>
-    <div class="flex-grow-1 float-right">
-      <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
-          <button (click)="logout()" ngbDropdownItem>Logout</button>
+          </svg>
+          <span class="reddit-text" style="padding: 200;">
+            Rate the company
+          </span>
+        </a>
+      </div>
+      <button class="login" style="border: 0px;" (click)="scroll()">
+        Click me!
+      </button>
+      <div class="flex-grow-1 float-right">
+        <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
+            <button (click)="logout()" ngbDropdownItem>Logout</button>
+          </div>
+          <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>
+            <img
+              class="account-icon"
+              src="https://www.redditstatic.com/avatars/avatar_default_08_D4E815.png"
+              />
+            {{ username }}
+          </button>
         </div>
-        <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>
-          <img
-            class="account-icon"
-            src="https://www.redditstatic.com/avatars/avatar_default_08_D4E815.png"
-          />
-          {{ username }}
-        </button>
+        <div *ngIf="!isLoggedIn">
+          <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
+          <a routerLink="/login" class="float-right login mr-2">Login</a>
+        </div>
       </div>
-      <div *ngIf="!isLoggedIn">
-        <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
-        <a routerLink="/login" class="float-right login mr-2">Login</a>
-      </div>
-    </div>
-  </nav>
-</header>
+    </nav>
+  </header>
