@@ -7,6 +7,11 @@ import { LoginRequestPayload } from '../login/login-request.payload';
 import { LoginResponse } from '../login/login-response.payload';
 import { map, tap } from 'rxjs/operators';
 
+export interface UserDetails {
+  username: string;
+  accountNumber: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -50,6 +55,18 @@ export class AuthService {
 
           this.loggedIn.emit(true);
           this.username.emit(data.username);
+          return data;
+        })
+      );
+  }
+
+  getUserDetailsByUsername(): Observable<UserDetails> {
+    return this.httpClient.get<UserDetails>(
+      'http://localhost:8080/api/account/' +
+      this.localStorage.retrieve('username')
+    )
+      .pipe(
+        map((data) => {
           return data;
         })
       );
